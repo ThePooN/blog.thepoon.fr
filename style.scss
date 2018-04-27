@@ -30,6 +30,19 @@ body {
   width: 100%;
 }
 
+.embed {
+  text-align: center;
+}
+
+.embed > * {
+  margin: auto;
+}
+
+.embed > video {
+  width: 640px;
+  height: 360px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: $helveticaNeue;
   color: $darkerGray;
