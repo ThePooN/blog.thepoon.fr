@@ -1,0 +1,97 @@
+---
+---
+
+//
+// IMPORTS
+//
+
+@import "variables";
+
+/**************/
+/* BASE RULES */
+/**************/
+
+body {
+	background: $white;
+  color: $darkGray;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $darkerGray;
+}
+
+h4 {
+  color: $gray;
+}
+
+a {
+  color: $blue;
+  &:hover, &:active {
+    color: $blue;
+  }
+}
+
+.date {
+  color: $gray;
+}
+
+// Specify the color of the selection
+::-moz-selection {
+  color: $black;
+  background: $lightGray;
+}
+::selection {
+  color: $black;
+  background: $lightGray;
+}
+
+/*********************/
+/* LAYOUT / SECTIONS */
+/*********************/
+
+//
+// .masthead
+//
+
+.masthead {
+  border-bottom: 1px solid $lightGray;
+}
+
+.site-name {
+  color: $darkGray;
+}
+
+.site-description {
+  color: $gray;
+}
+
+nav {
+  a {
+    color: $darkGray;
+
+    @include mobile {
+      color: $blue;
+    }
+  }
+}
+
+//
+// .main
+//
+
+.posts > .post {
+  border-bottom: 1px solid $lightGray;
+}
+
+.post {
+  blockquote {
+    border-left: 2px solid $gray;
+    color: $gray;
+  }
+}
+
+.wrapper-footer {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: $lightGray;
+}
