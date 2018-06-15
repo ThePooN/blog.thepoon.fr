@@ -30,7 +30,7 @@ First, I recommend you to run this to ensure you have all the requirements to bu
 sudo pacman -S base-devel wget git
 ```
 
-There are 2 methods, the manual one and the more fancy one, using a CLI tool: `yaourt`. But to get to install `yaourt`, you'll have to use the manual one first. So let's dive into that :)
+There are 2 methods, the manual one and the more fancy one, using a CLI tool: `yay`. But to get to install `yay`, you'll have to use the manual one first. So let's dive into that :)
 
 ### Manual
 
@@ -76,35 +76,25 @@ makepkg -si # -s stands for build, -i stands for install
 
 Don't forget to make it executable with `chmod +x /usr/local/bin/aurinstall`. After that, you can just type `aurinstall sublime-text-dev` to install Sublime Text, or any other package from AUR, given you know its name.
 
-### Yaourt
+### Yay
 
-Yaourt is a CLI tool that enables you to search for packages from both official repos and AUR and simplify every step. But I figured a small video will give you a better idea than a wall of text:
+Yay is a CLI tool that enables you to search for packages from both official repos and AUR and simplify every step. But I figured a small video will give you a better idea than a wall of text:
 
 <div class="embed">
-	<video src="/assets/articles/2018-06-14-InstallingAURPackage/yaourt.mp4" controls preload="metadata"></video>
+	<video src="/assets/articles/2018-06-14-InstallingAURPackage/yay.mp4" controls preload="metadata"></video>
 </div>
 
-But before using yaourt comes installing yaourt. Luckily, it's an AUR package, so we should be able to install it with our previous script, right?
+But before using yay comes installing yay. Luckily, it's an AUR package, so we can install it with our previous script, using `aurinstall yay`.
 
-```
-==> Making package: yaourt 1.9-1 (Thu Jun 14 11:43:30 2018)
-==> Checking runtime dependencies...
-==> Installing missing dependencies...
-error: target not found: package-query>=1.8
-==> ERROR: 'pacman' failed to install missing dependencies.
-```
+`yay` can actually fully replace `pacman`: it supports all of its commands in their original syntax, and it can even do more, such as `yay -Syu`: that will update the remote database, and propose you to upgrade both official packages and AUR packages, something `pacman` doesn't handle alone. I encourage you to keep your AUR packages up-to-date with this command. AUR packages aren't officially supported and have more chance of breaking something on your system, so paying more attention to them is essential.
 
-That is underwhelming. `yaourt` needs a dependency that is not installed, and not on the official repositories neither, consequently the install fails. Luckily, it's an AUR package and this one doesn't depend on any other AUR package. So we can just execute `aurinstall package-query`, and finally `aurinstall yaourt`.  
+In addition to "replacing `pacman`", `yay` enables you to look up for a package, as I did in the first step of my video. It is as simple as `yay <keywords>`.
 
-Turns out that if you use `yaourt` from now on, you won't ever face that issue again, as yaourt supports lookup from the AUR.
-
-`yaourt` can actually fully replace `pacman`: it supports all of its commands in their original syntax, and it can even do more, such as `yaourt --aur -Syu`: that will update the remote database, and propose you to upgrade both official packages and AUR packages, something `pacman` doesn't handle. I encourage you to keep your AUR packages up-to-date with this command. AUR packages aren't officially supported and have more chance of breaking something on your system, so paying more attention to them is essential.
-
-In addition to "replacing `pacman`", `yaourt` enables you to look up for a package, as I did in the first step of my video. It is as simple as `yaourt <keywords>`.
-
-I encourage you to read the `yaourt` manual to learn more: `man yaourt`
+I encourage you to read the `yay` manual to learn more: `man yay`
 
 ## Conclusion
 
 AUR is one of Arch Linux's strengths: it makes virtually nearly all software available on Arch, for you to easily install with easy-to-use tools.  
 You can learn more about AUR on [its wiki page](https://wiki.archlinux.org/index.php/Arch_User_Repository) and even submit your own package whenever you can't find one that suits your needs! Also, feel free to take a look at [my own packages](https://aur.archlinux.org/packages/?SeB=m&K=ThePooN) ;-)
+
+**UPDATE (June 15th 2018): Thanks to [Zyfarok](https://twitter.com/Zyfarok) for pointing out `yaourt` is deprecated, I updated this article using `yay` instead.
