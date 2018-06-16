@@ -254,12 +254,12 @@ Lastly, let's get my patch into action: start osu! with the lowest `STAGING_AUDI
 To tidy up your install, I recommend creating a start script, in `~/.local/bin/osu` for example:
 ```bash
 #!/bin/sh
-WINEPREFIX=~/.wine_osu
-STAGING_AUDIO_DURATION=5000 # As low as you can get osu! stable with
+export WINEPREFIX=~/.wine_osu
+export STAGING_AUDIO_DURATION=5000 # As low as you can get osu! stable with
 
 # Arch Linux/wine-osu users should uncomment next line
 # for the patch to be effective
-#PATH=/opt/wine-osu/bin:$PATH
+#export PATH=/opt/wine-osu/bin:$PATH
 
 cd ~/Documents/osu! # Or wherever you installed osu! in
 wine osu!.exe "$@"
@@ -268,7 +268,7 @@ wine osu!.exe "$@"
 I also recommend creating a "kill" script. osu! may freeze or not start for whatever reason, and that comes in handy sometimes. In `~/.local/bin/osukill` for example:
 ```bash
 #!/bin/sh
-WINEPREFIX=~/.wine_osu
+export WINEPREFIX=~/.wine_osu
 
 wineserver -k
 ```
