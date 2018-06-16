@@ -305,7 +305,7 @@ Then, open `pavucontrol`, go into the Recording tab, set display to "All Streams
 
 Finally, in OBS set the Audio Capture device to "audiocap". OBS should capture playback audio fine now.
 
-### Tablet Configuration & More
+### Tablet Configuration, Troubleshooting & More
 
 That's it for me! I leave the rest to [Franc[e]sco's Ultimate guide](https://osu.ppy.sh/community/forums/topics/367783&start=0). His post on the osu! forums covers osu! installation, but also has many tips such as how to fix Japanese fonts and tablet configuration.  
 I also covered configuration of the XP-PEN Star G640 in a [previous article](/XPPenLinux)!
