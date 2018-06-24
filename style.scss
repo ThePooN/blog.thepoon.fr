@@ -236,6 +236,13 @@ nav {
   border-bottom: 1px solid $lightGray;
 }
 
+.posts > .post > h2 {
+  font-size: 30px;
+  a {
+    color: inherit;
+  }
+}
+
 .posts > .post:last-child {
   padding-bottom: 1em;
   border-bottom: none;

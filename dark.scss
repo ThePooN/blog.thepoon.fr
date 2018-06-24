@@ -87,6 +87,12 @@ nav {
   border-bottom: 1px solid $darkGray;
 }
 
+.posts > .post > h2 {
+  a:hover, a:active {
+    color: $blue;
+  }
+}
+
 .post {
   blockquote {
     border-left: 2px solid $gray_dark;
