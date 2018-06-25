@@ -189,7 +189,7 @@ Very basically, the `WINEPREFIX` is a folder that will be the root of our "Windo
 We don't have to create it, Wine will take care of that for us. All we need to do is set the path to it in our environment. **That also means you will need to define it every time you open a new shell and want to manipulate your osu! install and start osu!** (unless you define it in your profile, which will make it your default `WINEPREFIX`, which is pointless since it already has a default value of `~/.wine` when undefined).  
 We will also set `WINEARCH` to `win32`. That will make this `WINEPREFIX` only able to execute 32-bit apps, which is fine in our case. It is recommended to make your prefix 32-bit only if you don't need 64-bit support, as this is a more stable configuration.
 ```bash
-export WINEPREFIX=~/.wine_osu # This is the path to a hidden folder in your home folder.
+export WINEPREFIX="$HOME/.wine_osu" # This is the path to a hidden folder in your home folder.
 export WINEARCH=win32 # Only needed when executing the first command with that WINEPREFIX
 
 # Arch Linux/wine-osu users should uncomment next line
@@ -226,7 +226,7 @@ You may replace `@audio` by your username if you're not part of the `audio` grou
 
 Now, for audio latency, we will set a few PulseAudio settings.
 ```bash
-mkdir -p ~/.config/pulse/daemon.conf.d/
+mkdir -p /etc/pulse/daemon.conf.d/
 echo "high-priority = yes
 nice-level = -15
 
@@ -236,7 +236,7 @@ realtime-priority = 50
 resample-method = speex-float-0
 
 default-fragments = 2 # Minimum is 2
-default-fragment-size-msec = 2 # You can set this to 1, but that will break OBS audio capture." > ~/.config/pulse/daemon.conf.d/better-latency.conf
+default-fragment-size-msec = 2 # You can set this to 1, but that will break OBS audio capture." | sudo tee -a /etc/pulse/daemon.conf.d/10-better-latency.conf
 ```
 
 Next, we will want to edit `/etc/pulse/default.pa`. You should find a line similar to this:
@@ -254,7 +254,7 @@ Lastly, let's get my patch into action: start osu! with the lowest `STAGING_AUDI
 To tidy up your install, I recommend creating a start script, in `~/.local/bin/osu` for example:
 ```bash
 #!/bin/sh
-export WINEPREFIX=~/.wine_osu
+export WINEPREFIX="$HOME/.wine_osu"
 export STAGING_AUDIO_DURATION=5000 # As low as you can get osu! stable with
 
 # Arch Linux/wine-osu users should uncomment next line
@@ -268,7 +268,7 @@ wine osu!.exe "$@"
 I also recommend creating a "kill" script. osu! may freeze or not start for whatever reason, and that comes in handy sometimes. In `~/.local/bin/osukill` for example:
 ```bash
 #!/bin/sh
-export WINEPREFIX=~/.wine_osu
+export WINEPREFIX="$HOME/.wine_osu"
 
 wineserver -k
 ```
@@ -296,14 +296,14 @@ MimeType=x-scheme-handler/discord-367827983903490050;x-scheme-handler/osu;
 
 ### Workaround for OBS Audio Capture
 
-OBS Studio on Linux has trouble capturing low-latency audio. This can be worked around with a null sink and a loopback which will capture audio fine:
+OBS Studio on Linux has trouble capturing low-latency audio. This can be worked around with a null sink and a loopback which will capture audio fine. First, execute `pactl list sinks` and note the `name` property of your output device ("sink"). For this example, I'll use `alsa_output.pci-0000_0c_00.3.iec958-stereo`. Notice that I appended `.monitor` at the end of the source property on the second line.
 ```bash
 pactl load-module module-null-sink sink_name="audiocap" sink_properties=device.description="audiocap"
-pactl load-module module-loopback latency_msec=1 sink="audiocap"
+pactl load-module module-loopback latency_msec=1 sink="audiocap" source="alsa_output.pci-0000_0c_00.3.iec958-stereo.monitor"
 ```
-Then, open `pavucontrol`, go into the Recording tab, set display to "All Streams" and set the loopback source to "Monitor of \<playback device>". You will need to execute these commands and do that step everytime you restart your session/PulseAudio.
+You can now check the result in OBS by setting the Audio Capture device to "audiocap". OBS should capture playbacked audio fine now.
 
-Finally, in OBS set the Audio Capture device to "audiocap". OBS should capture playback audio fine now.
+If that works, you can make this permanent by adding these two lines at the end of your `/etc/pulse/default.pa` file.
 
 ### Tablet Configuration, Troubleshooting & More
 
