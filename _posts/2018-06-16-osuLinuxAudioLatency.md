@@ -176,7 +176,7 @@ First one is: build Wine 3.10, with [staging patches](https://github.com/wine-st
 
 Second option is: install Wine Staging and replace `winepulse.drv` with mine. However, this should be considered a workaround as it may not work across every Wine version, PulseAudio versions, distributions, etc. I do not recommend it, but I couldn't find an "easy enough" way to build Wine on other distributions such as Ubuntu, so... that will do for now (let me know if this breaks).  
 I tested this method successfully with Ubuntu 18.04 in a VM, I can confirm audio is working but I didn't measure latency.
-- Download and install Wine Staging from [WineHQ](https://wiki.winehq.org/Download). Ubuntu 18.04 is apparently still not supported, so you should execute this to add the 17.10 repo instead: `sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ artful main'`
+- Download and install Wine Staging from [WineHQ](https://wiki.winehq.org/Download)
 - Replace `winepulse.drv`: 
 ```bash
 sudo wget -O /opt/wine-staging/lib/wine/winepulse.drv.so https://blog.thepoon.fr/assets/articles/2018-06-16-osuLinuxAudioLatency/32bit/winepulse.drv.so
